@@ -1,35 +1,34 @@
 <?php
-$host = 'localhost';
-$db = 'job_tracker';
-$user = 'root';
-$pass = '';
+include('config.php');
 
-// Connect to database
-$conn = new mysqli($host, $user, $pass, $db);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'];
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$username = $_POST['username'];
-$password = password_hash($_POST['password'], PASSWORD_BCRYPT);  // Hash the password
-
-// Check if username exists
-$sql = "SELECT * FROM users WHERE username = '$username'";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    echo "Username already exists.";
-} else {
-    // Insert new user
     $sql = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
     if ($conn->query($sql) === TRUE) {
-        echo "Registration successful!";
+        echo "Registration successful";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
-
-$conn->close();
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>Register</h2>
+    <form method="POST" action="">
+        <label for="username">Username:</label>
+        <input type="text" name="username" required>
+        <label for="password">Password:</label>
+        <input type="password" name="password" required>
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>
 

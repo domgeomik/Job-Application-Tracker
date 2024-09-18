@@ -1,28 +1,18 @@
 <?php
+// Include database config
+include('config.php');
 session_start();
-if (!isset($_SESSION['username'])) {
-    header('Location: login.php');
-    exit;
-}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="style.css">
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Application Tracker</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<nav>
-    <h2>Welcome, <?php echo $_SESSION['username']; ?>!</h2>
-    <p>This is your dashboard where you can manage your job applications.</p>
-    <a href="logout.php">Logout</a>
-	</nav>
-	
-
     <header>
         <nav>
             <ul>
@@ -57,9 +47,33 @@ if (!isset($_SESSION['username'])) {
             <div class="text">Success is Yours!</div>
         </div>
     </div>
+	<div class="container">
+        <h1>Job Application Tracker</h1>
+        <p>
+            A Job Application Tracker is a tool or system designed to help individuals organize and manage their job search process. <br>It allows users to track details such as job titles, company names, application dates, job descriptions, the status of each application (e.g., applied, interview scheduled, rejected), <br>and any follow-up actions needed. By keeping all this information in one place, users can stay organized, maintain a clear overview of their progress, <br>and avoid missing important deadlines or follow-up opportunities.
+        </p>
+    </div>
+	
+	<style>
+      
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+        }
+        p {
+            font-size: 1.2rem;
+            color: #555;
+        }
+    </style>
 
     <script src="script.js"></script>
-
 </body>
 </html>
 
