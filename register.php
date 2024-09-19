@@ -1,34 +1,28 @@
 <?php
-include('config.php');
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-
-    $sql = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
-    if ($conn->query($sql) === TRUE) {
-        echo "Registration successful";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
-}
+// register.php
+include 'includes/header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Register</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <h2>Register</h2>
-    <form method="POST" action="">
-        <label for="username">Username:</label>
-        <input type="text" name="username" required>
-        <label for="password">Password:</label>
-        <input type="password" name="password" required>
+<main>
+    <?php
+    if(isset($_SESSION['error'])){
+        echo "<p class='error'>".htmlspecialchars($_SESSION['error'])."</p>";
+        unset($_SESSION['error']);
+    }
+    if(isset($_SESSION['success'])){
+        echo "<p class='success'>".htmlspecialchars($_SESSION['success'])."</p>";
+        unset($_SESSION['success']);
+    }
+    ?>
+    <form action="register_handler.php" method="POST">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
         <button type="submit">Register</button>
     </form>
-</body>
-</html>
+</main>
+
+<?php
+include 'includes/footer.php';
+?>
 
